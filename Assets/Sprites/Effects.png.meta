@@ -1,0 +1,146 @@
+fileFormatVersion: 2
+guid: 9ec15b97bfe877d438e9f9ca9f461d9a
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: arrow
+    21300002: fire_trail
+    21300004: fire_projectile
+    21300006: water_trail
+    21300008: water_projectile
+    21300010: earth_trail
+    21300012: earth_projectile
+    21300014: air_trail
+    21300016: air_projectile
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: arrow
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 722
+        width: 371
+        height: 132
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fire_trail
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 835
+        width: 179
+        height: 110
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fire_projectile
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 806
+        width: 159
+        height: 170
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: water_trail
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 590
+        width: 167
+        height: 106
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: water_projectile
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 577
+        width: 177
+        height: 169
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: earth_trail
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 317
+        width: 115
+        height: 152
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: earth_projectile
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 306
+        width: 183
+        height: 176
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: air_trail
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 108
+        width: 189
+        height: 43
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: air_projectile
+      rect:
+        serializedVersion: 2
+        x: 789
+        y: 69
+        width: 178
+        height: 147
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
