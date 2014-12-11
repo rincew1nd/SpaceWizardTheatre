@@ -137,7 +137,7 @@ public class Mage : MonoBehaviour
     }
 
 	// Play animation when mage get hurted
-    public void Hurt(float dmg)
+    public void hurt(float dmg)
     {
 		if (Shield <= 0)
 			Health -= dmg;
@@ -147,36 +147,27 @@ public class Mage : MonoBehaviour
 				Health -= Shield;
 		}
         gameObject.GetComponent<Animator>().SetTrigger("Hurt");
+		isAnimated = true;
     }
 
-	public void Heal(float Health_copy)
+	public void heal(float Health_copy)
 	{
 		Health += Health_copy;
         //gameObject.GetComponent<Animator>().SetTrigger("Heal");
 		isAnimated = true;
 	}
 	
-	// Status of mage
+	// Death
 	public void Death()
 	{
+		isDead = true;
         gameObject.GetComponent<Animator>().SetTrigger("Dead");
-		StartCoroutine("Disable", "Death");
+		StartCoroutine("DeathTimer");
 	}
+
 	public void setInterrupted()
 	{
-		StartCoroutine ("Disable", "Interrupted");
-	}
-	public void setBroken()
-	{
-		StartCoroutine ("Disable", "Broken");
-	}
-	public void setWinded()
-	{
-		StartCoroutine ("Disable", "Winded");
-	}
-	public void setFreezed()
-	{
-		StartCoroutine ("Disable", "Freezed");
+		StartCoroutine ("Interrupted");
 	}
     
 	// Decrease cooldown of all skill while it's CD not zero
@@ -190,58 +181,17 @@ public class Mage : MonoBehaviour
                     cooldown[i]--;
         }
     }
-
-	IEnumerator Disable(string Type)
+	// Death and resurrection
+	IEnumerator DeathTimer()
 	{
-		float timeToWait;
-		switch (Type)
-		{
-		case "Death":
-			timeToWait = 8f;
-			isDead = true;
-			break;
-		case "Interrupted":
-			timeToWait = 2f;
-			isInterrupted = true;
-			break;
-		case "Broken":
-			timeToWait = 3f;
-			isBroken = true;
-			break;
-		case "Winded":
-			timeToWait = 6f;
-			isWinded = true;
-			break;
-		case "Freezed":
-			timeToWait = 3f;
-			isFreezed = true;
-			break;
-		default:
-			break;
-		}
-
+		yield return new WaitForSeconds(10.0f);
+		isDead = false;
+		Health = maxHealth;
+	}
+	IEnumerator Interrupted()
+	{
+		isInterrupted = true;
 		yield return new WaitForSeconds(3.0f);
-
-		switch (Type)
-		{
-		case "Death":
-			isDead = false;
-			Health = maxHealth/2;
-			break;
-		case "Interrupted":
-			isInterrupted = false;
-			break;
-		case "Broken":
-			isBroken = false;
-			break;
-		case "Winded":
-			isWinded = false;
-			break;
-		case "Freezed":
-			isFreezed = false;
-			break;
-		default:
-			break;
-		}
+		isInterrupted = false;
 	}
 }

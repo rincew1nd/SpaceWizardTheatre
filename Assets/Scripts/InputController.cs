@@ -19,10 +19,10 @@ public class InputController : MonoBehaviour
 	void Start()
 	{
 		Targets = new GameObject[4] {
-				GameObject.Find("BlueMage"),
-				GameObject.Find("MinionsBlue"),
+				GameObject.Find("MageRed"),
 				GameObject.Find("MinionsRed"),
-				GameObject.Find("RedMage")
+				GameObject.Find("MinionsBlue"),
+				GameObject.Find("BlueMage")
 			};
 		direction = new Vector2();
 		isPressed = new bool[4];
@@ -50,23 +50,19 @@ public class InputController : MonoBehaviour
 			} else if (isPressed[0] || isPressed[1] || isPressed[2] || isPressed[3])
 			{
 				// If trigger is not pressed, but element button is, damage yourself as punishment
-				this.GetComponent<Mage>().Hurt(-1.0f);
+				this.GetComponent<Mage>().heal(-1f);
 				this.GetComponent<Mage>().setInterrupted();
 				UnpressAll();
 			}
-		}
-		/*----- Debug log. Usefull sometimes! ------
-		if (this.GetComponent<Mage>().isDead || this.GetComponent<Mage>().isInterrupted || this.GetComponent<Mage>().isFreezed || this.GetComponent<Mage>().isBroken || this.GetComponent<Mage>().isWinded)
-		{
+		} else {
 			if (this.GetComponent<Mage>().isDead) Debug.Log("Dead");
 			if (this.GetComponent<Mage>().isInterrupted) Debug.Log("Interrupted");
 			if (this.GetComponent<Mage>().isFreezed) Debug.Log("Freezed");
 			if (this.GetComponent<Mage>().isBroken) Debug.Log("Broken");
 			if (this.GetComponent<Mage>().isWinded) Debug.Log("Winded");
 		}
-		--------------------------------------------------*/
 
-		/*----- Debug input variables. Very usefull! ------
+		/*------ Debug input variables. Very usefull! ------
 		A = Input.GetButton("A"+player);
 		B = Input.GetButton("B"+player);
 		X = Input.GetButton("X"+player);
@@ -83,13 +79,9 @@ public class InputController : MonoBehaviour
 		if (Input.GetAxisRaw("AxisY"+player) >= 0.1f)
 		{
 			direction.y -= 0.1f;
-			if (direction.y < 0) direction.x = -1*direction.y;
-			if (direction.y > 0) direction.x = direction.y;
 		} else if (Input.GetAxisRaw("AxisY"+player) <= -0.1f)
 		{
-			direction.y += 0.1f;
-			if (direction.y < 0) direction.x = -1*direction.y;
-			if (direction.y > 0) direction.x = direction.y;			
+			direction.y += 0.1f;			
 		}
 		//else { Debug.Log ("LeftStick is not pressed"); }
 	}
@@ -103,6 +95,7 @@ public class InputController : MonoBehaviour
 			// If target not changed for a while (0.5 sec now)
 			if (isTargetReadyToChange)
 			{
+				Debug.Log ("+");
 				switch(target)
 				{
 				case 0:
@@ -118,7 +111,7 @@ public class InputController : MonoBehaviour
 					target = 0;
 					break;
 				default:
-					target = (player == 1) ? 0 : 3;
+					target = 0;
 					break;
 				}
 				//Debug.Log ("Target is switched to "+Targets[0].name);
@@ -130,6 +123,7 @@ public class InputController : MonoBehaviour
 			// If target not changed for a while (0.5 sec now)
 			if (isTargetReadyToChange)
 			{
+				Debug.Log ("-");
 				// Change target and set cooldown for operation
 				switch(target)
 				{
@@ -146,7 +140,7 @@ public class InputController : MonoBehaviour
 					target = 2;
 					break;
 				default:
-					target = (player == 1) ? 0 : 3;
+					target = 0;
 					break;
 				}
 				//Debug.Log ("Target is switched to "+Targets[0].name);
@@ -154,6 +148,7 @@ public class InputController : MonoBehaviour
 				StartCoroutine("changeTargetState");
 			}
 		}
+		//else { Debug.Log ("LeftStick is not pressed"); }
 	}
 	
 	// Check for pressed button
@@ -206,28 +201,28 @@ public class InputController : MonoBehaviour
 			{
 				this.GetComponent<Mage>().SetGlobalCooldown("Attack");
 				this.GetComponent<Mage>().SetSkillCooldown("Attack","A");
-				GameObject.Find("Earth").GetComponent<ActionScript_Earth>().Attack(direction, power, player, this.transform.position);
+				GameObject.Find("Earth").GetComponent<ActionScript_Earth>().Attack(direction, power, player);
 				UnpressAll();
 			}
 			if (isPressed[1] && !Input.GetButton("B"+player))
 			{
 				this.GetComponent<Mage>().SetGlobalCooldown("Attack");
 				this.GetComponent<Mage>().SetSkillCooldown("Attack","B");
-				GameObject.Find("Fire").GetComponent<ActionScript_Fire>().Attack(direction, power, player, this.transform.position);
+				GameObject.Find("Fire").GetComponent<ActionScript_Fire>().Attack(direction, power, player);
 				UnpressAll();
 			}
 			if (isPressed[2] && !Input.GetButton("X"+player))
 			{
 				this.GetComponent<Mage>().SetGlobalCooldown("Attack");
 				this.GetComponent<Mage>().SetSkillCooldown("Attack","X");
-				GameObject.Find("Water").GetComponent<ActionScript_Water>().Attack(direction, power, player, this.transform.position);
+				GameObject.Find("Water").GetComponent<ActionScript_Water>().Attack(direction, power, player);
 				UnpressAll();
 			}
 			if (isPressed[3] && !Input.GetButton("Y"+player))
 			{
 				this.GetComponent<Mage>().SetGlobalCooldown("Attack");
 				this.GetComponent<Mage>().SetSkillCooldown("Attack","Y");
- 				GameObject.Find("Air").GetComponent<ActionScript_Air>().Attack(direction, power, player, this.transform.position);
+				GameObject.Find("Air").GetComponent<ActionScript_Air>().Attack(direction, power, player);
 				UnpressAll();
 			}
 
@@ -240,9 +235,9 @@ public class InputController : MonoBehaviour
 	{
 		if (isPressed[0] || isPressed[1] || isPressed[2] || isPressed[3])
 		{
+			Debug.Log ("Buff");
 			if (isPressed[0] && !Input.GetButton("A"+player))
 			{
-				Debug.Log("Earth");
 				this.GetComponent<Mage>().SetGlobalCooldown("Buff");
 				this.GetComponent<Mage>().SetSkillCooldown("Buff","A");
 				GameObject.Find("Earth").GetComponent<ActionScript_Earth>().BuffOrDebuff(player, Targets[target]);
@@ -250,7 +245,6 @@ public class InputController : MonoBehaviour
 			}
 			if (isPressed[1] && !Input.GetButton("B"+player))
 			{
-				Debug.Log("Fire");
 				this.GetComponent<Mage>().SetGlobalCooldown("Buff");
 				this.GetComponent<Mage>().SetSkillCooldown("Buff","B");
 				GameObject.Find("Fire").GetComponent<ActionScript_Fire>().BuffOrDebuff(player, Targets[target]);
@@ -258,7 +252,6 @@ public class InputController : MonoBehaviour
 			}
 			if (isPressed[2] && !Input.GetButton("X"+player))
 			{
-				Debug.Log("Water");
 				this.GetComponent<Mage>().SetGlobalCooldown("Buff");
 				this.GetComponent<Mage>().SetSkillCooldown("Buff","X");
 				GameObject.Find("Water").GetComponent<ActionScript_Water>().BuffOrDebuff(player, Targets[target]);
@@ -266,7 +259,6 @@ public class InputController : MonoBehaviour
 			}
 			if (isPressed[3] && !Input.GetButton("Y"+player))
 			{
-				Debug.Log("Air");
 				this.GetComponent<Mage>().SetGlobalCooldown("Buff");
 				this.GetComponent<Mage>().SetSkillCooldown("Buff","Y");
 				GameObject.Find("Air").GetComponent<ActionScript_Air>().BuffOrDebuff(player, Targets[target]);
@@ -277,11 +269,12 @@ public class InputController : MonoBehaviour
 
 	void UnpressAll()
 	{
+		Debug.Log ("Zahel");
 		for (int i=0; i<4; i++)
 			isPressed [i] = false;
 		power = 0;
-		target = (player == 1) ? 0 : 3;
-		direction.y=1;
+		target = 0;
+		direction.y=0;
 	}
 
 	public void Animate (string action, bool value)
