@@ -13,17 +13,18 @@ public class ActionScript_Water : ActionScript
 	{
 		damageValue = 3;
 		healValue = 2;
-		pivot = new Vector3 (0,0,0);
 	}
 	
-	public void Attack(Vector2 direction, float power, int player_copy)
+	public void Attack(Vector2 direction, float power, int player_copy, Vector3 pivot_copy)
 	{
 		player = player_copy;
-		
+		pivot = pivot_copy;
+
 		GameObject waterball;
 		waterball = (GameObject)Instantiate(gameObject, pivot, Quaternion.identity);
 		if (direction.x<0)waterball.transform.Rotate(0, 180, 0);
 		waterball.rigidbody2D.AddForce(direction * power);
+		waterball.layer = (player == 1) ? LayerMask.NameToLayer("Blue") : LayerMask.NameToLayer("Red");
 	}
 	public void OnCollisionEnter2D(Collision2D other)
 	{
@@ -34,12 +35,15 @@ public class ActionScript_Water : ActionScript
 	}
 	public override void AttackMage(GameObject hitedMage)
 	{
-		hitedMage.GetComponent<Mage>().isFreezed = true;
+		hitedMage.GetComponent<Mage>().Hurt(1f);
+		hitedMage.GetComponent<Mage>().setFreezed();
+		Destroy(this.gameObject);
 	}
 	public override void AttackMinion(GameObject gameobject)
 	{
 		minion[0].GetComponent<Minion>().moveMinion(damageValue*0.1f);
 		minion[1].GetComponent<Minion>().moveMinion(damageValue*0.1f);
+		Destroy(this.gameObject);
 	}
 	
 	
@@ -62,7 +66,6 @@ public class ActionScript_Water : ActionScript
 			if (target.tag == "Minion")//MageRed Buff his Minion
 				DeBuffMinion(target);
 		}
-		Debug.Log("Buff сработал");
 	}
 	public void BuffMage(GameObject gameobject)
 	{
