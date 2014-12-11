@@ -16,14 +16,16 @@ public class ActionScript_Earth : ActionScript
 		pivot = new Vector3 (0,0,0);
 	}
 	
-	public void Attack(Vector2 direction, float power, int player_copy)
+	public void Attack(Vector2 direction, float power, int player_copy, Vector3 pivot_copy)
 	{
 		player = player_copy;
+		pivot = pivot_copy;
 		
 		GameObject earthball;
 		earthball = (GameObject)Instantiate(gameObject, pivot, Quaternion.identity);
 		if (direction.x<0)earthball.transform.Rotate(0, 180, 0);
 		earthball.rigidbody2D.AddForce(direction * power);
+		earthball.layer = (player == 1) ? LayerMask.NameToLayer("Blue") : LayerMask.NameToLayer("Red");
 	}
 	public void OnCollisionEnter2D(Collision2D other)
 	{
@@ -34,12 +36,15 @@ public class ActionScript_Earth : ActionScript
 	}
 	public override void AttackMage(GameObject hitedMage)
 	{
-		hitedMage.GetComponent<Mage>().isBroken = true;
+		hitedMage.GetComponent<Mage>().Hurt(1f);
+		hitedMage.GetComponent<Mage>().setBroken();
+		Destroy(this.gameObject);
 	}
 	public override void AttackMinion(GameObject gameobject)
 	{
 		minion[0].GetComponent<Minion>().moveMinion(damageValue*0.1f);
 		minion[1].GetComponent<Minion>().moveMinion(damageValue*0.1f);
+		Destroy(this.gameObject);
 	}
 	
 	
@@ -62,7 +67,6 @@ public class ActionScript_Earth : ActionScript
 			if (target.tag == "Minion")//MageRed Buff his Minion
 				DeBuffMinion(target);
 		}
-		Debug.Log("Buff сработал");
 	}
 	public void BuffMage(GameObject gameobject)
 	{
