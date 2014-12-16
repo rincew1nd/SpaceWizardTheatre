@@ -5,12 +5,16 @@ public class ActionScript_Water : ActionScript
 {
 	private Vector2 direction;
 	private float power;
-	private int player;
+	public int player;
 	private int targetNum;
 	private Vector3 pivot;
 	
 	public override void Start()
 	{
+		minion = new GameObject[2] {
+			GameObject.Find ("RedMinion"),
+			GameObject.Find ("BlueMinion")
+		};
 		damageValue = 3;
 		healValue = 2;
 	}
@@ -28,22 +32,51 @@ public class ActionScript_Water : ActionScript
 	}
 	public void OnCollisionEnter2D(Collision2D other)
 	{
-		if (other.gameObject.tag == "Mage")
+		if (other.gameObject.name != "Hold_projectiles" &&
+		     other.gameObject.name != "Water" &&
+		     other.gameObject.name != "Fire" &&
+		     other.gameObject.name != "Earth" && 
+		     other.gameObject.name != "Air" &&
+		     other.gameObject.name != "Water(Clone)" &&
+		     other.gameObject.name != "Fire(Clone)" &&
+		     other.gameObject.name != "Earth(Clone)" && 
+		     other.gameObject.name != "Air(Clone)"){
+			Debug.Log (other.gameObject.name);
+			Destroy(this.gameObject);}
+		if (other.gameObject.tag == "Mage" && other.gameObject.GetComponent<Mage>().player == player)
 			AttackMage(other.gameObject);
-		if (other.gameObject.tag == "Minion")
-			AttackMinion(other.gameObject);
+		if (other.gameObject.tag == "Minion" && other.gameObject.GetComponent<Minion>().player == player)
+			AttackMinion(other.gameObject, true);
+		if (other.gameObject.tag == "Minion" && other.gameObject.GetComponent<Minion>().player != player)
+			AttackMinion(other.gameObject, false);
 	}
 	public override void AttackMage(GameObject hitedMage)
 	{
 		hitedMage.GetComponent<Mage>().Hurt(1f);
 		hitedMage.GetComponent<Mage>().setFreezed();
-		Destroy(this.gameObject);
 	}
-	public override void AttackMinion(GameObject gameobject)
+	public override void AttackMinion(GameObject gameobject, bool self)
 	{
-		minion[0].GetComponent<Minion>().moveMinion(damageValue*0.1f);
-		minion[1].GetComponent<Minion>().moveMinion(damageValue*0.1f);
-		Destroy(this.gameObject);
+		if (self)
+		{
+			if(player == 1)
+			{
+				minion[0].GetComponent<Minion>().moveMinion(-damageValue*0.1f);
+				minion[1].GetComponent<Minion>().moveMinion(-damageValue*0.1f);
+			} else {
+				minion[0].GetComponent<Minion>().moveMinion(damageValue*0.1f);
+				minion[1].GetComponent<Minion>().moveMinion(damageValue*0.1f);
+			}
+		} else {
+			if(player == 1)
+			{
+				minion[0].GetComponent<Minion>().moveMinion(damageValue*0.1f);
+				minion[1].GetComponent<Minion>().moveMinion(damageValue*0.1f);
+			} else {
+				minion[0].GetComponent<Minion>().moveMinion(-damageValue*0.1f);
+				minion[1].GetComponent<Minion>().moveMinion(-damageValue*0.1f);
+			}
+		}
 	}
 	
 	

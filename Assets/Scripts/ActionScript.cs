@@ -9,8 +9,8 @@ public class ActionScript : MonoBehaviour {
     public virtual void Start()
 	{
 		minion = new GameObject[2] {
-				GameObject.Find ("MinionRed"),
-				GameObject.Find ("MinionBlue")
+				GameObject.Find ("RedMinion"),
+				GameObject.Find ("BlueMinion")
 			};
 		damageValue = 3f;
 		healValue = 2f;
@@ -21,7 +21,7 @@ public class ActionScript : MonoBehaviour {
 	{
 		Destroy(this.gameObject);
 	}
-	public virtual void AttackMinion(GameObject gameobject)
+	public virtual void AttackMinion(GameObject gameobject, bool self)
 	{
 		Destroy(this.gameObject);
 	}

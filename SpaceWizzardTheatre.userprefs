@@ -1,0 +1,19 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ActionScript_Air.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Mage.cs" Line="212" Column="18" />
+      <File FileName="Assets\Scripts\InputController.cs" Line="55" Column="13" />
+      <File FileName="Assets\Scripts\ActionScript_Fire.cs" Line="12" Column="21" />
+      <File FileName="Assets\Scripts\ActionScript_Water.cs" Line="8" Column="8" />
+      <File FileName="Assets\Scripts\ActionScript_Earth.cs" Line="8" Column="8" />
+      <File FileName="Assets\Scripts\ActionScript_Air.cs" Line="60" Column="3" />
+      <File FileName="Assets\Scripts\SceneManager.cs" Line="28" Column="1" />
+      <File FileName="Assets\Scripts\ActionScript.cs" Line="24" Column="67" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
